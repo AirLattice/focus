@@ -2,10 +2,16 @@
 var express = require('express');
 var bodyparser = require('body-parser');
 var cookieParser = require('cookie-parser');
+var session = require('express-session');
 var app = express();
 app.use(express.static('public'));
 app.use(bodyparser.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(session({
+  secret: '123455kasldfk324lk23l4k@#$2#4',
+  resave: false,
+  saveUninitialized: true
+}));
 app.set('view engine', 'pug');
 app.set('views', './views');
 app.locals.pretty = true;
@@ -22,58 +28,32 @@ var db = server.use('focus');
 
 ///////////////////////////////////
 ///////////////////////////////////
-///////////////////////////////////
-///////////////////////////////////
 
-// ROUTER
-// var lists = require('./route/list')(app);
-// app.use('/list', lists);
+var list = require('./routes/list')(app, db);
+app.use('/list', list);
 
-app.get('/list', function(req, res){
-  var sql = 'SELECT FROM list'
-  db.query(sql).then(function(list){
-    res.render('list', {lists:list});
-  });
-});
-app.get('/login', function(req, res){
-  res.render('login');
-});
+var login = require('./routes/login')(app);
+app.use('/login', login);
+
+var add = require('./routes/add')(app);
+app.use('/add', add);
 
 
-///////////////////////////////////
-///////////////////////////////////
-///////////////////////////////////
-///////////////////////////////////
 
-app.get('/add', function(req, res){
-  res.render('add');
-});
-app.post('/add', function(req, res){
-  var title = req.body.title;
-  var description = req.body.description;
-  var author = req.body.author;
-  var sql = 'INSERT INTO list (title, description, author) VALUES(:title, :desc, :author)';
-  db.query(sql, {
-    params:{
-      title:title,
-      desc:description,
-      author:author
-    }
-  }).then(function(results){
-      res.redirect('/list');
-  });
-});
-app.get('/bootstr', function(req, res){
-  res.render('bootstr');
-});
-app.get('/count', function(req, res){
-  res.cookie('count', 1);
-  var count_val = 'count : '+ req.cookies.count;
-  res.render('count', {count_val});
-});
-app.get('/', function(req, res){
-  res.render('index');
-});
+
+
+
+// app.get('/bootstr', function(req, res){
+//   res.render('bootstr');
+// });
+// app.get('/count', function(req, res){
+//   res.cookie('count', 1);
+//   var count_val = 'count : '+ req.cookies.count;
+//   res.render('count', {count_val});
+// });
+// app.get('/', function(req, res){
+//   res.render('index');
+// });
 
 // WEB_LISTEN
 app.listen(3000, function(){
