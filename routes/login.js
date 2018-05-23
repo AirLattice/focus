@@ -1,4 +1,4 @@
-module.exports = function(app){
+module.exports = function(app, session){
   var express = require('express');
   var route = express.Router();
   app.post('/auth/login', function(req, res){
@@ -16,7 +16,7 @@ module.exports = function(app){
       res.send('<h1>Who are you?</h1><a href="/auth/login">login</a>');
     }
   });
-  route.get('/auth/login', function(req, res){
+  app.get('/auth/login', function(req, res){
     res.render('login');
   });
   return route;

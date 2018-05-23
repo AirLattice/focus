@@ -26,7 +26,7 @@ var db = require('./config/orientdb')(app);
 var list = require('./routes/list')(app, db);
 app.use('/list', list);
 
-var login = require('./routes/login')(app);
+var login = require('./routes/login')(app, session);
 app.use('/auth/login', login);
 
 var add = require('./routes/add')(app, db);
