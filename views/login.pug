@@ -1,9 +1,9 @@
-extends layout
+extends ../views/layout
 block content
-  form(action='welcome')
+  form(action='/auth/login' method='post')
     p
       input(type='text' placeholder='ID' name='id')
     p
-      input(type='text' placeholder='Password' name='password') 
+      input(type='text' placeholder='Password' name='password')
     p
       input(type='submit')
