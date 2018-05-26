@@ -1,19 +1,37 @@
-html
+doctype html
+html(lang="ko")
   head
-    meta(charset='utf-8')
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    title Focus
+    link(href="/bootstrap/css/bootstrap.min.css" rel="stylesheet")
   body
-    h1 Main title area
-    ul
-      li aaaaaa
-      li bbbbbb
-      li cccccc
-    br
-    hr
-    block getit
-    hr
-    block getit2
- 
+    style.
+      #container{
+        padding-top:20px;
+      }
+    .container(id="container")
+      .row
+        header.jumbotron.text-center
+          h1
+            a(href='/') Focus at Music
+      .row
+        nav.col-md-12
+          .btn-group(role='group', aria-label='menu')
+            button.btn.btn-default(type='button')
+              a(href='/list') Music List
+            button.btn.btn-default(type='button')
+              a(href='/auth/login') Login
+            button.btn.btn-default(type='button')
+              a(href='/auth/register') Register
+            button.btn.btn-default(type='button')
+              a(href='/add') Music Add
+      .row
+        article.col-md-12
+          p
+            block content
 
 
-
-
+    script(src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js")
+    script(src="/bootstrap/js/bootstrap.min.js")

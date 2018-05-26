@@ -1,0 +1,7 @@
+extends layout
+block content
+  ul
+    each list in userlist
+      li
+        - rid = encodeURIComponent(list['@rid'])
+        a(href='/'+rid)= list.nick

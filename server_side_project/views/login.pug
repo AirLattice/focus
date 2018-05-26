@@ -1,0 +1,11 @@
+extends ../views/layout
+block content
+  form(action='/auth/login' method='post')
+    .input-group
+      input.form-control(type='text' name='username' placeholder='Username' aria-describedby='basic-addon1')
+    p
+    .input-group
+      input.form-control(type='text' name='password' placeholder='Password' aria-describedby='basic-addon1')
+    p
+    p
+      input(type='submit')

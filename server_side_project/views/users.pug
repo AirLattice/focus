@@ -1,0 +1,7 @@
+extends layout
+block content
+  ul
+    each user in users
+      li
+        - rid = encodeURIComponent(user['@rid'])
+        a(href='/'+rid)= user.id
