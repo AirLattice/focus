@@ -1,15 +1,17 @@
-module.exports = function(app, session){
+module.exports = function(app, session, passport){
   var express = require('express');
   var route = express.Router();
   app.post('/auth/login', function(req, res){
-    var user = {
-      username:'packman',
-      password:'111',
-      displayName:'PACKMAN'
-    };
+    var users = [
+      {
+        username: 'packman',
+        password: '111',
+        displayName: 'PACKMAN'
+      }
+    ];
     var uname = req.body.username;
     var pwd = req.body.password;
-    if(uname === user.username && pwd === user.password){
+    if(uname === users.username && pwd === users.password){
       req.session.displayName = user.displayName;
       res.redirect('/welcome');
     } else {
