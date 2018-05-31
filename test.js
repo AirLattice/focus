@@ -1,20 +1,30 @@
-var request = require("request");
-
-var options = { method: 'GET',
-  url: 'http://restapi.fs.ncloud.com/focusfs/text.txt',
-  qs:
-   { oauth_consumer_key: 'CZ9VHQDDUjWBPvLvFWIx',
-     oauth_signature_method: 'HMAC-SHA1',
-     oauth_timestamp: '1527354125',
-     oauth_nonce: 'y65vDT3WuV7',
-     oauth_version: '1.0',
-     oauth_signature: 'vJwV5SbZoqpg3dZc2ecpUU2zKsc=' },
-  headers:
-   { 'Postman-Token': '24eaf176-eb6d-48f3-bee0-d413d580cdc3',
-     'Cache-Control': 'no-cache' } };
+var express = require('express');
+var request = require("request-promise");
+var qs = require('querystring');
+var timestamp = require('time-stamp');
+var app = express();
+const options = {
+  method: 'GET',
+  uri: 'https://restapi.fs.ncloud.com/focusfs/text.txt',
+  Authentication: {
+    oauth_consumer_key:'CZ9VHQDDUjWBPvLvFWIx',
+    oauth_timestamp: timestamp('YYYYMMDDmmss'),		
+    oauth_nonce: 'X986FGW#',
+    oauth_version: '1.0',
+    oauth_signature_method: 'HMAC-SHA1',
+    json: true
+  }
+}
 
 request(options, function (error, response, body) {
-  if (error) throw new Error(error);
+  console.log('error:', error); 
+  // Print the error if one occurred
+  console.log('statusCode:', response && response.statusCode); 
+  // Print the response status code if a response was received
+  console.log('body:', body); // Print the HTML for the Google homepage.
+});
 
-  console.log(body);
+// WEB_LISTEN
+app.listen(3000, function(){
+  console.log('Connected to 3000 port');
 });
